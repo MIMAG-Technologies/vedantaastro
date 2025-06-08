@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-2xl font-medium bg-gradient-to-r from-orange-400 via-orange-600 to-yellow-400 bg-clip-text text-transparent">
+            <Link href="/" className="text-2xl font-medium text-indigo-700">
               VedantaAstro
             </Link>
           </div>
@@ -31,7 +31,8 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.path}
-                className="px-4 py-2 rounded-lg text-neutral-800 hover:bg-gradient-to-r hover:from-orange-400 hover:via-orange-600 hover:to-yellow-400 hover:bg-clip-text hover:text-transparent transition-all duration-300 font-normal"
+                className="px-4 py-2 rounded-lg text-indigo-600 hover:bg-indigo-50 
+                     transition-all duration-300 font-normal"
               >
                 {item.name}
               </Link>
