@@ -53,7 +53,7 @@ export default function Index() {
           </div>
         </div>
         {/* Right: Solar System Animation */}
-        <div className="hidden lg:block w-1/2 h-screen relative bg-neutral-900">
+        <div className="hidden lg:block w-1/2 h-screen relative ">
           <div className="absolute inset-0 flex items-center justify-center">
             <ChakraAnimation />
           </div>
