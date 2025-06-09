@@ -4,6 +4,7 @@ import ChakraAnimation from './components/ChakraAnimation'
 import AstrologersSection from './components/sections/AstrologersSection'
 import WhyVedantaSection from './components/sections/WhyVedantaSection'
 import ServicesSection from './components/sections/ServicesSection'
+import ProductsSection from './components/sections/ProductsSection' 
 
 export default function Index() {
   return (
@@ -74,6 +75,9 @@ export default function Index() {
 
       {/* Services Section */}
       <ServicesSection />
+
+      {/* Products Section */}
+      <ProductsSection />
     </div>
   )
 }
