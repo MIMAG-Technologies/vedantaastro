@@ -6,6 +6,7 @@ import WhyVedantaSection from './components/sections/WhyVedantaSection'
 import ServicesSection from './components/sections/ServicesSection'
 import ProductsSection from './components/sections/ProductsSection'
 import InsightsSection from './components/sections/InsightsSection'
+import Footer from './components/Footer'
 
 export default function Index() {
   return (
@@ -74,6 +75,7 @@ export default function Index() {
       <ServicesSection />
       <ProductsSection />
       <InsightsSection />
+      <Footer />
     </div>
   )
 }

@@ -60,6 +60,7 @@ const AstrologerCard: React.FC<AstrologerCardProps> = ({
         {/* Avatar Section */}
         <div className="relative mb-6">
           {avatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={avatar}
               alt={name}
