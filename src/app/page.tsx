@@ -1,11 +1,16 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import ChakraAnimation from './components/ChakraAnimation'
+import AstrologersSection from './components/sections/AstrologersSection'
+import WhyVedantaSection from './components/sections/WhyVedantaSection'
+import ServicesSection from './components/sections/ServicesSection'
 
 export default function Index() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
+      
+      {/* Hero Section */}
       <main className="relative w-full min-h-screen flex items-center">
         {/* Left: Hero Section */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 lg:px-12 xl:px-16 z-10 bg-white">
@@ -20,17 +25,17 @@ export default function Index() {
             </h1>
             
             {/* Description */}
-            <p className="text-lg lg:text-xl text-indigo-600 leading-relaxed mb-8 max-w-xl">
+            <p className="text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
               Discover the wisdom of Vedic astrology with personalized guidance from our expert astrologers. Illuminate your path to success in career, relationships, and spiritual growth.
             </p>
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white rounded-lg shadow-lg transition-all duration-300 text-lg px-8 py-4 font-medium">
+              <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 text-lg px-8 py-4 font-medium">
                 Book Consultation
               </button>
               
-              <div className="flex items-center gap-4 p-4 border border-indigo-200 rounded-xl bg-gradient-to-r from-orange-50 to-yellow-50 hover:from-orange-100 hover:to-yellow-100 transition-all duration-300">
+              <div className="flex items-center gap-4 p-4 border border-slate-200 rounded-xl bg-gradient-to-r from-orange-50 to-yellow-50 hover:from-orange-100 hover:to-yellow-100 transition-all duration-300">
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-orange-500 to-yellow-400 flex items-center justify-center shadow-lg">
                   <span role="img" aria-label="phone" className="text-white text-xl">📞</span>
                 </div>
@@ -60,6 +65,15 @@ export default function Index() {
           <ChakraAnimation />
         </div>
       </main>
+
+      {/* Astrologers Section */}
+      <AstrologersSection />
+
+      {/* Why Vedanta Section */}
+      <WhyVedantaSection />
+
+      {/* Services Section */}
+      <ServicesSection />
     </div>
   )
 }

@@ -16,7 +16,7 @@ const Navbar = () => {
   ]
 
   return (
-    <nav className="fixed w-full bg-white shadow-sm z-50">
+    <nav className="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex-shrink-0 flex items-center">
@@ -38,7 +38,7 @@ const Navbar = () => {
               </Link>
             ))}
             <button className="ml-4 px-6 py-2 bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white rounded-lg 
-                         transition-all duration-300 shadow-sm font-medium">
+                         transition-all duration-300 shadow-lg hover:shadow-xl font-medium">
               Contact
             </button>
           </div>
@@ -77,7 +77,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <button className="w-full mt-4 px-6 py-2 bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white rounded-lg 
-                         transition-all duration-300 shadow-sm font-medium">
+                         transition-all duration-300 shadow-lg font-medium">
                 Contact
               </button>
             </div>
