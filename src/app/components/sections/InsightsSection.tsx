@@ -61,7 +61,7 @@ const InsightsSection: React.FC = () => {
         {/* Blog Section */}
         <div className="mb-20">
           <div className="flex items-center justify-center gap-3 mb-12">
-            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-400 rounded-xl flex items-center justify-center shadow-lg">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
             <div className="text-center">

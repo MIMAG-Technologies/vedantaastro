@@ -38,15 +38,15 @@ const ServicesSection: React.FC = () => {
     }
   }, [])
 
-  // Much more spacious circular arc positioning
+  // Circular arc positioning with slightly smaller radius
   const getCardPosition = (index: number, totalCards: number) => {
     // Even wider arc for maximum spacing (180 degrees)
     const arcSpan = 180
     const startAngle = -90 // Start from -90 degrees
     const angle = startAngle + (index / (totalCards - 1)) * arcSpan
     
-    // Much larger radius for maximum spacing
-    const radius = 450
+    // Slightly reduced radius for better proportion
+    const radius = 400
     const x = Math.sin((angle * Math.PI) / 180) * radius
     const y = Math.cos((angle * Math.PI) / 180) * radius * 0.2 // Even flatter arc
     
@@ -57,7 +57,7 @@ const ServicesSection: React.FC = () => {
   }
 
   return (
-    <section className="py-28 bg-gradient-to-br from-slate-50 via-indigo-50/15 to-orange-50/25 relative overflow-hidden">
+    <section className="py-28 relative overflow-hidden">
       {/* Reduced background elements for cleaner look */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-32 left-1/5 w-72 h-72 bg-gradient-to-br from-orange-400/10 to-yellow-400/10 rounded-full blur-3xl"></div>
@@ -65,8 +65,8 @@ const ServicesSection: React.FC = () => {
       </div>
 
       <div className="max-w-8xl mx-auto px-8 lg:px-12 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-24">
+        {/* Section Header - Reduced bottom margin */}
+        <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-slate-800">Our Astrological</span>
             <br />
@@ -79,31 +79,31 @@ const ServicesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Much More Spacious Circular Arc Container */}
-        <div className="relative h-[600px] mb-20 flex items-center justify-center overflow-visible">
-          {/* Smaller, less distracting central element */}
+        {/* Reduced height and spacing for circular arc container */}
+        <div className="relative h-[500px] mb-16 flex items-center justify-center overflow-visible">
+          {/* Smaller central element */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div 
-              className="w-16 h-16 bg-gradient-to-br from-orange-500/20 to-yellow-400/20 rounded-full backdrop-blur-sm border border-white/30 flex items-center justify-center"
+              className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-yellow-400/20 rounded-full backdrop-blur-sm border border-white/30 flex items-center justify-center"
               style={{
                 transform: `rotate(${currentRotation * 1.5}deg)`,
                 transition: 'transform 0.1s ease-out'
               }}
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full shadow-md flex items-center justify-center">
-                <div className="w-1.5 h-1.5 bg-white rounded-full opacity-80"></div>
+              <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full shadow-md flex items-center justify-center">
+                <div className="w-1 h-1 bg-white rounded-full opacity-80"></div>
               </div>
             </div>
           </div>
 
-          {/* Service Cards in Ultra-Spacious Circular Arc */}
+          {/* Service Cards in Circular Arc with smaller scale */}
           {displayServices.map((service, index) => {
             const position = getCardPosition(index, displayServices.length)
             const rotationOffset = currentRotation + index * 72
             const cardRotation = currentRotation * 0.15 + position.rotation
             
-            // Enhanced scaling with better visibility range
-            const scaleValue = 0.85 + Math.sin((rotationOffset) * Math.PI / 180) * 0.2
+            // Reduced scaling for smaller cards
+            const scaleValue = 0.75 + Math.sin((rotationOffset) * Math.PI / 180) * 0.15
             const opacityValue = 0.8 + Math.sin((rotationOffset) * Math.PI / 180) * 0.2
             
             return (
@@ -143,12 +143,12 @@ const ServicesSection: React.FC = () => {
             )
           })}
 
-          {/* Minimalist orbital rings */}
+          {/* Adjusted orbital rings for smaller scale */}
           <div 
             className="absolute rounded-full border border-orange-200/20"
             style={{
-              width: '900px',
-              height: '180px',
+              width: '800px',
+              height: '160px',
               left: '50%',
               top: '50%',
               transform: `translate(-50%, -50%) rotate(${currentRotation * 0.2}deg)`,
@@ -158,8 +158,8 @@ const ServicesSection: React.FC = () => {
           <div 
             className="absolute rounded-full border border-indigo-200/15"
             style={{
-              width: '1100px',
-              height: '220px',
+              width: '1000px',
+              height: '200px',
               left: '50%',
               top: '50%',
               transform: `translate(-50%, -50%) rotate(${-currentRotation * 0.15}deg)`,
@@ -167,19 +167,19 @@ const ServicesSection: React.FC = () => {
             }}
           ></div>
 
-          {/* Cleaner guide lines */}
+          {/* Adjusted guide lines */}
           <div className="absolute inset-0 pointer-events-none">
             {[...Array(5)].map((_, i) => {
               const angle = -90 + (i / 4) * 180
               return (
                 <div
                   key={i}
-                  className="absolute w-px h-16 bg-gradient-to-b from-transparent via-orange-200/25 to-transparent"
+                  className="absolute w-px h-12 bg-gradient-to-b from-transparent via-orange-200/25 to-transparent"
                   style={{
                     left: '50%',
                     top: '50%',
                     transformOrigin: '0 0',
-                    transform: `rotate(${angle}deg) translate(420px, -8px)`
+                    transform: `rotate(${angle}deg) translate(380px, -6px)`
                   }}
                 ></div>
               )
@@ -188,7 +188,7 @@ const ServicesSection: React.FC = () => {
         </div>
 
         {/* Enhanced Navigation Dots */}
-        <div className="flex justify-center mb-16 space-x-6">
+        <div className="flex justify-center mb-12 space-x-4">
           {displayServices.map((_, index) => {
             const rotationOffset = currentRotation + index * 72
             const isActive = Math.sin((rotationOffset) * Math.PI / 180) > 0.3
@@ -199,12 +199,12 @@ const ServicesSection: React.FC = () => {
                 key={index}
                 className={`rounded-full transition-all duration-300 cursor-pointer ${
                   isActive 
-                    ? 'w-4 h-4 bg-gradient-to-r from-orange-500 to-yellow-400 scale-125 shadow-lg' 
-                    : 'w-3 h-3 bg-gradient-to-r from-orange-400 to-yellow-400'
+                    ? 'w-3 h-3 bg-gradient-to-r from-orange-500 to-yellow-400 scale-125 shadow-lg' 
+                    : 'w-2 h-2 bg-gradient-to-r from-orange-400 to-yellow-400'
                 }`}
                 style={{
                   opacity: 0.5 + intensity * 0.5,
-                  boxShadow: isActive ? '0 0 20px rgba(255, 165, 0, 0.4)' : 'none'
+                  boxShadow: isActive ? '0 0 15px rgba(255, 165, 0, 0.4)' : 'none'
                 }}
               ></div>
             )
