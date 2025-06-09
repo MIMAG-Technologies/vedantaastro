@@ -4,7 +4,8 @@ import ChakraAnimation from './components/ChakraAnimation'
 import AstrologersSection from './components/sections/AstrologersSection'
 import WhyVedantaSection from './components/sections/WhyVedantaSection'
 import ServicesSection from './components/sections/ServicesSection'
-import ProductsSection from './components/sections/ProductsSection' 
+import ProductsSection from './components/sections/ProductsSection'
+import InsightsSection from './components/sections/InsightsSection'
 
 export default function Index() {
   return (
@@ -67,17 +68,12 @@ export default function Index() {
         </div>
       </main>
 
-      {/* Astrologers Section */}
+      {/* All Sections */}
       <AstrologersSection />
-
-      {/* Why Vedanta Section */}
       <WhyVedantaSection />
-
-      {/* Services Section */}
       <ServicesSection />
-
-      {/* Products Section */}
       <ProductsSection />
+      <InsightsSection />
     </div>
   )
 }

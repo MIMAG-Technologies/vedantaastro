@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useMemo } from 'react'
 import ProductCard from '../ProductCard'
 import ProductFilter from '../ProductFilter'
