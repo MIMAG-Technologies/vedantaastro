@@ -1,12 +1,13 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import ChakraAnimation from './components/ChakraAnimation'
+// import ChakraAnimation from './components/ChakraAnimation' // Commented out for future use
 import AstrologersSection from './components/sections/AstrologersSection'
 import WhyVedantaSection from './components/sections/WhyVedantaSection'
 import ServicesSection from './components/sections/ServicesSection'
 import ProductsSection from './components/sections/ProductsSection'
 import InsightsSection from './components/sections/InsightsSection'
 import Footer from './components/Footer'
+import PlanetAnimation from './components/PlanetAnimation'
 
 export default function Index() {
   return (
@@ -39,7 +40,7 @@ export default function Index() {
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black text-2xl rounded-2xl shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 px-8 py-4 font-medium backdrop-blur-sm border-2 border-white/80 hover:border-white/100 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                <button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black text-2xl rounded-2xl shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 px-8 py-4 font-medium backdrop-blur-sm border-3 border-white/80 hover:border-white/100 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
                   Book Consultation
                 </button>
                 
@@ -63,16 +64,24 @@ export default function Index() {
             </div>
           </div>
           
-          {/* Right: Solar System Animation - moved slightly higher */}
+          {/* Right: Planet Animation - moved slightly higher */}
           <div className="hidden lg:block w-1/2 h-[120vh] relative">
             <div className="absolute inset-0 flex items-center justify-center -mt-20">
-              <ChakraAnimation />
+              <PlanetAnimation 
+                planetImage="/planets/EARTH.png"
+                planetSize={550}
+                rotationSpeed={0.8}
+              />
             </div>
           </div>
           
-          {/* Mobile Solar System Background */}
+          {/* Mobile Planet Animation Background */}
           <div className="lg:hidden absolute inset-0 opacity-20 pointer-events-none">
-            <ChakraAnimation />
+            <PlanetAnimation 
+              planetImage="/planets/EARTH.png"
+              planetSize={400}
+              rotationSpeed={0.6}
+            />
           </div>
 
           {/* Keep gradient transition exactly the same */}
