@@ -1,16 +1,17 @@
-'use client'
-import React, { useEffect, useRef } from 'react'
+/* eslint-disable @next/next/no-img-element */
+'use client';
+import React, { useEffect, useRef } from 'react';
 
-const ChakraAnimation = () => {
-  const systemRef = useRef<SVGSVGElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+const VedantaAstro = () => {
+  const systemRef = useRef<SVGSVGElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // SVG dimensions and positioning
-  const svgSize = 900;
+  const svgSize = 1250;
   const svgHeight = 700;
   const center = svgHeight / 2;
   const centerX = svgSize / 2;
-  const planetRadius = 45;
+  const planetRadius = 60;
 
   // Orbit radiuses
   const orbitRadiuses = [
@@ -24,17 +25,89 @@ const ChakraAnimation = () => {
     370   // Neptune
   ];
 
-  // Planets data
+  // Planets data with correct /plantes/ paths
   const planets = [
-    { name: 'Sun', size: 1.8, color: '#FFE484', angle: 0, orbit: 'center' },
-    { name: 'Mercury', size: 0.6, color: '#A67358', angle: 45, orbit: 0 },
-    { name: 'Venus', size: 0.8, color: '#E39E54', angle: 90, orbit: 1 },
-    { name: 'Earth', size: 0.9, color: '#7EAED9', angle: 135, orbit: 2 },
-    { name: 'Mars', size: 0.7, color: '#D67762', angle: 180, orbit: 3 },
-    { name: 'Jupiter', size: 1.4, color: '#E8B07F', angle: 225, orbit: 4 },
-    { name: 'Saturn', size: 1.3, color: '#E8CC6F', angle: 270, orbit: 5 },
-    { name: 'Uranus', size: 1.0, color: '#9BD4E4', angle: 315, orbit: 6 },
-    { name: 'Neptune', size: 1.0, color: '#6081DE', angle: 360, orbit: 7 }
+    { 
+      name: 'Sun', 
+      size: 1.8, 
+      color: '#FF8C00', 
+      glowColor: '#FFA500',
+      angle: 0, 
+      orbit: 'center' as const, 
+      image: '/planets/SUN.png'
+    },
+    { 
+      name: 'Mercury', 
+      size: 0.6, 
+      color: '#D2691E', 
+      glowColor: '#FF7F50',
+      angle: 45, 
+      orbit: 0, 
+      image: '/planets/MERCURY.png'
+    },
+    { 
+      name: 'Venus', 
+      size: 0.8, 
+      color: '#E39E54', 
+      glowColor: '#FFB347',
+      angle: 90, 
+      orbit: 1, 
+      image: '/planets/VENUS.png'
+    },
+    { 
+      name: 'Earth', 
+      size: 0.9, 
+      color: '#7EAED9', 
+      glowColor: '#87CEEB',
+      angle: 135, 
+      orbit: 2, 
+      image: '/planets/EARTH.png'
+    },
+    { 
+      name: 'Mars', 
+      size: 0.7, 
+      color: '#D67762', 
+      glowColor: '#FF6347',
+      angle: 180, 
+      orbit: 3, 
+      image: '/planets/MARS.png'
+    },
+    { 
+      name: 'Jupiter', 
+      size: 1.4, 
+      color: '#E8B07F', 
+      glowColor: '#DEB887',
+      angle: 225, 
+      orbit: 4, 
+      image: '/planets/JUPYTER.png'
+    },
+    { 
+      name: 'Saturn', 
+      size: 1.5, 
+      color: '#E8CC6F', 
+      glowColor: '#F0E68C',
+      angle: 270, 
+      orbit: 5, 
+      image: '/planets/SATURN.png'
+    },
+    { 
+      name: 'Uranus', 
+      size: 1.0, 
+      color: '#9BD4E4', 
+      glowColor: '#B0E0E6',
+      angle: 315, 
+      orbit: 6, 
+      image: '/planets/URANUS.png'
+    },
+    { 
+      name: 'Neptune', 
+      size: 1.0, 
+      color: '#6081DE', 
+      glowColor: '#7B68EE',
+      angle: 360, 
+      orbit: 7, 
+      image: '/planets/NEPTUNE.png'
+    }
   ];
 
   // Calculate planet position
@@ -49,53 +122,55 @@ const ChakraAnimation = () => {
     };
   };
 
-  // Orbit styles and gradients
+  // Enhanced orbit styles matching your project theme
   const orbitsSection = (
     <defs>
-      {/* Minimalistic astrological background */}
+      {/* Orangish gradient background for chakra theme */}
       <radialGradient id="space-bg" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#392C64" />
-        <stop offset="45%" stopColor="#2E2150" />
-        <stop offset="75%" stopColor="#251940" />
-        <stop offset="90%" stopColor="#2A1B3D" />
-        <stop offset="100%" stopColor="#2D1D3A" />
+        <stop offset="0%" stopColor="#000000" />
+        <stop offset="25%" stopColor="#1a0f0a" />
+        <stop offset="50%" stopColor="#2d1810" />
+        <stop offset="75%" stopColor="#1a0f0a" />
+        <stop offset="100%" stopColor="#000000" />
       </radialGradient>
 
-      {/* Orbit line gradient */}
+      {/* Enhanced orangish orbit lines */}
       <linearGradient id="orbit-line" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-        <stop offset="50%" stopColor="#ffffff" stopOpacity="0.7" />
-        <stop offset="100%" stopColor="#ffffff" stopOpacity="0.4" />
+        <stop offset="0%" stopColor="#FF8C00" stopOpacity="0.3" />
+        <stop offset="50%" stopColor="#FFA500" stopOpacity="0.8" />
+        <stop offset="100%" stopColor="#FF8C00" stopOpacity="0.3" />
       </linearGradient>
 
-      {/* Mystical glow filter */}
+      {/* Subtle glow filter */}
       <filter id="mysticGlow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
         <feColorMatrix
           type="matrix"
-          values="0 0 0 0 0.6   
-                  0 0 0 0 0.4
-                  0 0 0 0 0.7  
-                  0 0 0 0.8 0"
+          values="1 0 0 0 0   
+                  0.9 1 0 0 0
+                  0 0.3 1 0 0  
+                  0 0 0 0.7 0"
         />
       </filter>
 
-      {/* Constellation pattern */}
-      <pattern id="constellations" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-        <circle cx="60" cy="60" r="0.8" fill="#ffffff" opacity="0.3" />
-        <circle cx="30" cy="30" r="0.5" fill="#ffffff" opacity="0.2" />
-        <circle cx="90" cy="90" r="0.5" fill="#ffffff" opacity="0.2" />
+      {/* Orangish star pattern for chakra theme */}
+      <pattern id="constellations" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+        <circle cx="100" cy="100" r="1.2" fill="#FF8C00" opacity="0.4" />
+        <circle cx="50" cy="50" r="0.8" fill="#FFA500" opacity="0.3" />
+        <circle cx="150" cy="60" r="0.9" fill="#FFB347" opacity="0.35" />
+        <circle cx="60" cy="150" r="0.7" fill="#FF7F50" opacity="0.25" />
+        <circle cx="140" cy="140" r="0.6" fill="#D2691E" opacity="0.2" />
       </pattern>
     </defs>
   );
 
-  // Rotation animation
+  // Smooth rotation animation
   useEffect(() => {
     let frame: number;
     let angle = 0;
     
     const animate = () => {
-      angle += 0.1;
+      angle += 0.08; 
       if (systemRef.current) {
         systemRef.current.style.transform = `rotate(${angle}deg)`;
       }
@@ -107,93 +182,128 @@ const ChakraAnimation = () => {
   }, []);
 
   return (
-    <div 
-      ref={containerRef}
-      className="relative w-full h-screen flex items-center justify-center"
-    >
-      <svg
-        ref={systemRef}
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${svgSize} ${svgHeight}`}
-        className="block max-w-xl"
-        preserveAspectRatio="xMidYMid meet"
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      {/* Chakra Title */}
+      
+      
+      <div 
+        ref={containerRef}
+        className="relative w-full h-full flex items-center justify-center"
       >
-        {orbitsSection}
+        <svg
+          ref={systemRef}
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${svgSize} ${svgHeight}`}
+          className="block max-w-full max-h-full"
+          preserveAspectRatio="xMidYMid meet"
+        >
+            {orbitsSection}
 
-        {/* Background */}
-        <circle
-          cx={centerX}
-          cy={center}
-          r={orbitRadiuses[7] + 40}
-          fill="url(#space-bg)"
-        />
-        <circle
-          cx={centerX}
-          cy={center}
-          r={orbitRadiuses[7] + 40}
-          fill="url(#constellations)"
-          opacity={0.4}
-        />
+            {/* Background matching your black theme */}
+            <circle
+              cx={centerX}
+              cy={center}
+              r={orbitRadiuses[7] + 60}
+              fill="url(#space-bg)"
+            />
+            <circle
+              cx={centerX}
+              cy={center}
+              r={orbitRadiuses[7] + 60}
+              fill="url(#constellations)"
+              opacity={0.4}
+            />
 
-        {/* Orbit circles */}
-        {orbitRadiuses.map((radius: number, i: number) => (
-          <circle
-            key={`orbit-${i}`}
-            cx={centerX}
-            cy={center}
-            r={radius}
-            fill="none"
-            stroke="url(#orbit-line)"
-            strokeWidth="1"
-            strokeDasharray="4 3"
-            opacity={0.7}
-            filter="url(#mysticGlow)"
-          />
-        ))}
-
-        {/* Planets */}
-        {planets.map((planet, index: number) => {
-          const { x, y } = calculatePlanetPosition(planet);
-          return (
-            <g key={`planet-group-${index}`}>
+            {/* Elegant orbit circles */}
+            {orbitRadiuses.map((radius, i) => (
               <circle
-                cx={x}
-                cy={y}
-                r={planetRadius * planet.size + 5}
-                fill={planet.color}
-                opacity={0.15}
-                filter="blur(8px)"
+                key={`orbit-${i}`}
+                cx={centerX}
+                cy={center}
+                r={radius}
+                fill="none"
+                stroke="url(#orbit-line)"
+                strokeWidth="1"
+                strokeDasharray="8 6"
+                opacity={0.5}
+                filter="url(#mysticGlow)"
               />
-              <circle
-                cx={x}
-                cy={y}
-                r={planetRadius * planet.size}
-                fill={planet.color}
-                opacity={0.9}
-                style={{
-                  filter: `drop-shadow(0 0 2px ${planet.color})`,
-                  transition: 'all 0.3s ease'
-                }}
-              />
-            </g>
-          );
-        })}
+            ))}
 
-        {/* Stars */}
-        {Array.from({ length: 50 }).map((_, i: number) => (
-          <circle
-            key={`star-${i}`}
-            cx={Math.random() * svgSize}
-            cy={Math.random() * svgHeight}
-            r={Math.random() * 1}
-            fill="#ffffff"
-            opacity={Math.random() * 0.5 + 0.25}
-          />
-        ))}
-      </svg>
+            {/* Planets - Real Images Only */}
+            {planets.map((planet, index: number) => {
+              const { x, y } = calculatePlanetPosition(planet);
+              const planetSize = planetRadius * planet.size;
+              return (
+                <foreignObject
+                  key={`planet-${index}`}
+                  x={x - planetSize}
+                  y={y - planetSize}
+                  width={planetSize * 2}
+                  height={planetSize * 2}
+                >
+                  <div
+                    style={{
+                      width: planetSize * 2,
+                      height: planetSize * 2,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      background: 'transparent'
+                    }}
+                  >
+                    <img
+                      src={planet.image}
+                      alt={planet.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                      onLoad={() => console.log(`${planet.name} image loaded successfully`)}
+                      onError={(e) => {
+                        console.error(`Failed to load ${planet.name} image:`, planet.image);
+                        const target = e.target as HTMLImageElement;
+                        target.alt = `${planet.name} (image not found)`;
+                      }}
+                    />
+                  </div>
+                </foreignObject>
+              );
+            })}
+
+            {/* Enhanced stars with orangish theme */}
+            {Array.from({ length: 60 }).map((_, i: number) => {
+              const colors = ['#FF8C00', '#FFA500', '#FFB347', '#FF7F50', '#D2691E'];
+              const randomColor = colors[Math.floor(Math.random() * colors.length)];
+              return (
+                <circle
+                  key={`star-${i}`}
+                  cx={Math.random() * svgSize}
+                  cy={Math.random() * svgHeight}
+                  r={Math.random() * 1.2 + 0.4}
+                  fill={randomColor}
+                  opacity={Math.random() * 0.7 + 0.2}
+                  style={{
+                    filter: `drop-shadow(0 0 2px ${randomColor})`,
+                    animation: `warmTwinkle ${2 + Math.random() * 4}s infinite ease-in-out`
+                  }}
+                />
+              );
+            })}
+          </svg>
+
+          {/* Warm orangish animation theme */}
+          <style jsx>{`
+            @keyframes warmTwinkle {
+              0%, 100% { opacity: 0.2; }
+              50% { opacity: 0.8; }
+            }
+          `}</style>
+        </div>
     </div>
   );
 };
 
-export default ChakraAnimation
+export default VedantaAstro;

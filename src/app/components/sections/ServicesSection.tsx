@@ -68,8 +68,8 @@ const ServicesSection: React.FC = () => {
         {/* Section Header - Reduced bottom margin */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-slate-800">Our Astrological</span>
-            <br />
+            <span className="text-slate-800">Our Astrological </span>
+           
             <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
               Services
             </span>

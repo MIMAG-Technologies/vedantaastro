@@ -47,8 +47,8 @@ const InsightsSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-slate-800">Insights &</span>
-            <br />
+            <span className="text-slate-800">Insights & </span>
+            
             <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
               Daily Guidance
             </span>
