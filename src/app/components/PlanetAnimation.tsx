@@ -9,7 +9,7 @@ interface PlanetAnimationProps {
 }
 
 const PlanetAnimation: React.FC<PlanetAnimationProps> = ({
-  planetImage = '/planets/EARTH.png',
+  planetImage = '/planets/JUPYTER.png',
   planetSize = 500,
   rotationSpeed = 0.8
 }) => {
