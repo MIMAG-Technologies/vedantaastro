@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 
@@ -40,7 +40,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center space-x-2 absolute left-15">
             <Link href="/" className="flex items-center space-x-2">
-              <Image
+              <img
                 src="/planets/vedanta.png"
                 alt="VedantaAstro Logo"
                 width={32}
