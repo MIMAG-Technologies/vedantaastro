@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import AstrologerCard from '../AstrologerCard'
+import AstrologerCard from '../HomeCards/AstrologerCard'
 import { astrologersData } from '@/app/Data/astrologers'
 
 const AstrologersSection: React.FC = () => {

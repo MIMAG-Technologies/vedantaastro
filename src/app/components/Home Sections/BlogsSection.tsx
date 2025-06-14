@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import BlogCard from '../BlogCard'
+import BlogCard from '../HomeCards/BlogCard'
 import { blogsData, blogCategories } from '@/app/Data/blogs'
 import { BookOpen, Filter } from 'lucide-react'
 

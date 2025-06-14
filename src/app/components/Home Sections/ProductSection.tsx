@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useMemo } from 'react'
-import ProductCard from '../ProductCard'
-import ProductFilter from '../ProductFilter'
+import ProductCard from '../HomeCards/ProductCard'
+import ProductFilter from '../HomeSectionComponents/ProductFilter'
 import { productsData, productCategories } from '@/app/Data/products'
 
 const ProductsSection: React.FC = () => {

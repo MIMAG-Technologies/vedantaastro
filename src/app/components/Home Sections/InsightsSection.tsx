@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import HomeBlogCard from '../HomeBlogCard'
-import HomeHoroscopeCard from '../HomeHoroscopeCard'
+import HomeBlogCard from '../HomeCards/HomeBlogCard'
+import HomeHoroscopeCard from '../HomeCards/HomeHoroscopeCard'
 import { homeBlogs, homeHoroscopes } from '@/app/Data/homeContent'
 import { BookOpen, Stars, ArrowRight } from 'lucide-react'
 

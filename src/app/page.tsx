@@ -1,13 +1,13 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 // import ChakraAnimation from './components/ChakraAnimation' // Commented out for future use
-import AstrologersSection from './components/sections/AstrologersSection'
-import WhyVedantaSection from './components/sections/WhyVedantaSection'
-import ServicesSection from './components/sections/ServicesSection'
-import ProductsSection from './components/sections/ProductsSection'
-import InsightsSection from './components/sections/InsightsSection'
+import AstrologersSection from './components/Home Sections/AstrologersSection'
+import WhyVedantaSection from './components/Home Sections/WhyVedantaSection'
+import ServicesSection from './components/Home Sections/ServicesSection'
+import ProductsSection from './components/Home Sections/ProductsSection'
+import InsightsSection from './components/Home Sections/InsightsSection'
 import Footer from './components/Footer'
-import PlanetAnimation from './components/PlanetAnimation'
+import PlanetAnimation from './components/HomeSectionComponents/PlanetAnimation'
 
 export default function Index() {
   return (

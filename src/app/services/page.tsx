@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ServiceCard, { Service } from '../components/services/ServiceCard';
-import { getServices, ServicesQueryParams, ServiceResponse } from '../lib/services';
+import { getServices } from '../utils/services';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 
@@ -100,7 +101,7 @@ export default function ServicesPage() {
       <div className="relative h-[500px] flex items-center justify-center text-center overflow-hidden bg-cover bg-center" 
            style={{ backgroundImage: 'url("/planets/services.jpg")' }}>
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/90" />
+        <div className="absolute inset-0" />
         
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -108,7 +109,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-2xl">
+            <h1 className="text-5xl md:text-6xl font-bold text-orange-400 mb-6 drop-shadow-2xl">
               Discover Our Services
             </h1>
             <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed drop-shadow-xl">

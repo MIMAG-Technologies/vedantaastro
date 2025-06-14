@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import ServiceCard from '../ServiceCard'
+import ServiceCard from '../HomeCards/ServiceCard'
 import { servicesData } from '@/app/Data/services'
 
 const ServicesSection: React.FC = () => {

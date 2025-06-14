@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import SimpleProductCard from '../SimpleProductCard'
+import SimpleProductCard from '../HomeCards/SimpleProductCard'
 import { productsData } from '@/app/Data/products'
 import { Sparkles, TrendingUp, Award, Shield, Zap, Crown } from 'lucide-react'
 
