@@ -65,3 +65,5 @@ export async function getServiceCategories(): Promise<string[]> {
 
   return response.json();
 } 
+
+export type { Service };

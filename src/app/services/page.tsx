@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ServiceCard, { Service } from '../components/services/ServiceCard';
-import { getServices } from '../utils/services';
+import ServiceCard from '../components/services/ServiceCard';
+import { getServices, Service } from '../utils/services';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
+
 
 const serviceTypes = [
   { value: '', label: 'All Services', icon: '✨' },
@@ -82,11 +84,11 @@ export default function ServicesPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
         <Navbar />
         <div className="pt-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center text-red-600">{error}</div>
+            <div className="text-center text-red-600 bg-red-50 p-4 rounded-lg shadow-sm">{error}</div>
           </div>
         </div>
       </div>
@@ -94,35 +96,49 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="relative h-[500px] flex items-center justify-center text-center overflow-hidden bg-cover bg-center" 
-           style={{ backgroundImage: 'url("/planets/services.jpg")' }}>
-        {/* Overlay */}
-        <div className="absolute inset-0" />
+      {/* Hero Section - Image dominant with minimal overlay */}
+      <div className="relative h-[500px] flex items-center justify-center text-center overflow-hidden">
+        {/* Background Image - Maximized visibility */}
+        <div className="absolute inset-0">
+          {/* Full visibility image as dominant element */}
+          <img 
+            src="/planets/services.jpg" 
+            alt="Services background"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          
+          {/* Very light overlay - just enough for text readability */}
+          <div className="absolute inset-0 bg-purple-900/30"></div>
+          
+          {/* Bottom gradient only to ensure text readability */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
+        </div>
         
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Content with shadow for better visibility against dominant image */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-orange-400 mb-6 drop-shadow-2xl">
+            {/* Enhanced text shadow for readability without hiding image */}
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-yellow-700 ">
               Discover Our Services
             </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed drop-shadow-xl">
+            <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed mb-12 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
               Explore our comprehensive range of astrological services, designed to guide you on your spiritual journey and help you make informed decisions.
             </p>
           </motion.div>
 
-          {/* Search Bar */}
+          {/* Semi-transparent search bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="mt-12 max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto"
           >
             <form onSubmit={handleSearch} className="relative group">
               <input
@@ -130,9 +146,9 @@ export default function ServicesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for services..."
-                className="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-2xl 
-                  focus:ring-2 focus:ring-amber-500 focus:border-transparent shadow-sm
-                  transition-all duration-300 group-hover:border-amber-200 bg-white/90 text-gray-900 placeholder-gray-500"
+                className="w-full px-6 py-4 text-lg border-0 rounded-2xl 
+                  focus:ring-2 focus:ring-amber-500 shadow-lg
+                  transition-all duration-300 bg-white/80 backdrop-blur-sm text-gray-900 placeholder-gray-500"
               />
               <button
                 type="submit"
@@ -150,7 +166,13 @@ export default function ServicesPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        {/* Subtle background decoration */}
+        <div className="absolute inset-0 overflow-hidden -z-10">
+          <div className="absolute top-1/3 left-1/5 w-72 h-72 rounded-full bg-amber-100/30 blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/5 w-64 h-64 rounded-full bg-indigo-100/40 blur-3xl" />
+        </div>
+        
         {/* Service Type Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -167,7 +189,7 @@ export default function ServicesPage() {
                   flex items-center gap-2 backdrop-blur-sm
                   ${selectedType === type.value
                     ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25'
-                    : 'bg-white/80 text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-amber-200'
+                    : 'bg-white text-gray-600 hover:bg-amber-50 border border-gray-200 hover:border-amber-200'
                   }`}
               >
                 <span className="text-lg">{type.icon}</span>
@@ -188,9 +210,19 @@ export default function ServicesPage() {
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl shadow-sm animate-pulse h-[450px] border border-gray-100"
+                  className="bg-white rounded-2xl shadow-md animate-pulse h-[450px] border border-gray-100"
                 />
               ))}
+            </motion.div>
+          ) : services.length === 0 ? (
+            <motion.div
+              key="no-results"
+              {...fadeInUp}
+              className="text-center py-12"
+            >
+              <div className="text-5xl mb-4">🔍</div>
+              <h3 className="text-2xl font-semibold text-gray-700 mb-2">No services found</h3>
+              <p className="text-gray-500">Try adjusting your search or filters</p>
             </motion.div>
           ) : (
             <motion.div
@@ -205,7 +237,14 @@ export default function ServicesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <ServiceCard service={service} />
+                  <ServiceCard 
+                    service={service}
+                    gradientFrom={index % 3 === 0 ? "from-amber-500" : 
+                                 index % 3 === 1 ? "from-indigo-500" : "from-purple-500"}
+                    gradientTo={index % 3 === 0 ? "to-orange-500" : 
+                               index % 3 === 1 ? "to-blue-500" : "to-pink-500"}
+                    onSelect={(service) => router.push(`/services/${service.id}`)}
+                  />
                 </motion.div>
               ))}
             </motion.div>
@@ -238,4 +277,4 @@ export default function ServicesPage() {
       </div>
     </div>
   );
-} 
+}
