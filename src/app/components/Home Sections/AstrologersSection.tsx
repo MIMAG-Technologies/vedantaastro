@@ -1,5 +1,4 @@
 'use client'
-
 import React from 'react'
 import AstrologerCard from '../HomeCards/AstrologerCard'
 import { astrologersData } from '@/app/Data/astrologers'
@@ -30,8 +29,7 @@ const AstrologersSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-slate-800">Our Expert </span>
-            
+            <span className="text-slate-800">Our Expert </span>                         
             <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
               Astrologers
             </span>
@@ -53,9 +51,9 @@ const AstrologersSection: React.FC = () => {
             />
           ))}
         </div>
-
-        {/* View All Button */}
-        <div className="text-center">
+           
+        {/* View All Button - Moved further down */}
+        <div className="text-center mt-24">
           <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white py-4 px-12 rounded-2xl font-medium text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
             View All Astrologers
           </button>

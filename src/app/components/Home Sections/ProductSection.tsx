@@ -50,7 +50,7 @@ const ProductsSection: React.FC = () => {
   }, [selectedCategory, sortBy])
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50/50 via-white to-indigo-50/30 relative overflow-hidden">
+    <section className="py-10 bg-gradient-to-br from-slate-50/50 via-white to-indigo-50/30 relative overflow-hidden">
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-20 left-1/5 w-64 h-64 bg-gradient-to-br from-orange-400/10 to-yellow-400/10 rounded-full blur-3xl"></div>

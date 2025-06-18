@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-// import ChakraAnimation from './components/ChakraAnimation' // Commented out for future use
 import AstrologersSection from './components/Home Sections/AstrologersSection'
 import WhyVedantaSection from './components/Home Sections/WhyVedantaSection'
 import ServicesSection from './components/Home Sections/ServicesSection'
@@ -13,16 +12,16 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section with Navbar */}
-      <div className="bg-black min-h-[120vh]">
+      <div className="bg-black min-h-screen">
         <Navbar />
         
-        {/* Hero Section */}
-        <main className="relative w-full min-h-[120vh] flex items-center bg-black">
+        {/* Hero Section - Fine-tuned positioning */}
+        <main className="relative w-full min-h-screen flex items-center bg-black pt-8">
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/95 to-black"></div>
           
-          {/* Left: Hero Section - moved slightly higher */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 lg:px-12 xl:px-16 z-10 relative -mt-20">
+          {/* Left: Hero Section - FINE-TUNED POSITIONING */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 lg:px-12 xl:px-16 z-10 relative">
             <div className="max-w-2xl">
               {/* Main Heading */}
               <h1 className="text-4xl lg:text-5xl xl:text-6xl tracking-tight font-bold leading-tight mb-6">
@@ -64,15 +63,15 @@ export default function Index() {
             </div>
           </div>
           
-          {/* Right: Planet Animation - moved slightly higher */}
-          <div className="hidden lg:block w-1/2 h-[120vh] relative">
-            <div className="absolute inset-0 flex items-center justify-center -mt-20">
-              <PlanetAnimation 
-                planetImage="/planets/EARTH.png"
-                planetSize={550}
-                rotationSpeed={0.8}
-              />
-            </div>
+          {/* Right: Planet Animation - CONSISTENT POSITIONING */}
+          <div className="hidden lg:block w-1/2 h-screen relative">
+            <PlanetAnimation 
+              planetImage="/planets/EARTH.png"
+              planetSize={550}
+              rotationSpeed={0.8}
+              containerClassName="w-full h-full" // Custom container class for hero
+              showBackground={true} // Show all background elements
+            />
           </div>
           
           {/* Mobile Planet Animation Background */}
@@ -81,17 +80,16 @@ export default function Index() {
               planetImage="/planets/EARTH.png"
               planetSize={400}
               rotationSpeed={0.6}
+              containerClassName="w-full h-full" // Custom container class for mobile
+              showBackground={false} // Hide background elements on mobile overlay
             />
           </div>
-
-          {/* Keep gradient transition exactly the same */}
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/95 to-transparent"></div>
         </main>
       </div>
 
-      {/* White Content Sections with subtle top padding */}
-      <div className="bg-white -mt-16 relative z-10">
-        <div className="pt-16">
+      {/* White Content Sections without overlapping or transition */}
+      <div className="bg-white relative z-10">
+        <div>
           <AstrologersSection />
           <WhyVedantaSection />
           <ServicesSection />

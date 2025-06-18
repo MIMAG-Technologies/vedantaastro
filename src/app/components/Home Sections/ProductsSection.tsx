@@ -29,7 +29,7 @@ const ProductsSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50/40 via-white to-indigo-50/30 relative overflow-hidden">
+    <section className="py-10 bg-gradient-to-br from-slate-50/40 via-white to-indigo-50/30 relative overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-1/6 w-64 h-64 bg-gradient-to-br from-orange-400/10 to-yellow-400/10 rounded-full blur-3xl"></div>

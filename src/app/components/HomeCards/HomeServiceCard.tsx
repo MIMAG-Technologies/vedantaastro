@@ -35,7 +35,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   }
 
   return (
-    <div className="w-72 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 hover:border-orange-300/60 group relative overflow-hidden cursor-pointer">
+    <div className="w-72 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 hover:border-orange-300/60 group relative overflow-hidden cursor-pointer">
       {/* Popular Badge */}
       {isPopular && (
         <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg z-10">
