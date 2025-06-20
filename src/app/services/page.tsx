@@ -100,7 +100,7 @@ export default function ServicesPage() {
       <Navbar />
       
       {/* Hero Section - Image dominant with minimal overlay */}
-      <div className="relative h-[500px] flex items-center justify-center text-center overflow-hidden">
+      <div className="relative h-[500px] flex items-center bg-black justify-center text-center overflow-hidden">
         {/* Background Image - Maximized visibility */}
         <div className="absolute inset-0">
           {/* Full visibility image as dominant element */}
