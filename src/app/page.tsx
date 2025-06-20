@@ -19,7 +19,7 @@ export default function Index() {
         {/* Nebula Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/planets/bgimage.jpg" 
+            src="/planets/622.jpg" 
             alt="Cosmic Nebula Background" 
             className="w-full h-full object-cover"
           />
@@ -129,14 +129,7 @@ export default function Index() {
                 </motion.div>
                 
                 {/* Foreground hand image */}
-                <motion.img 
-                  src="/planets/image.png" 
-                  alt="Mystical Hand" 
-                  className="img-responsive as_hand absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[75%]"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.5, delay: 0.8 }}
-                />
+               
               </div>
             </div>
           </div>
