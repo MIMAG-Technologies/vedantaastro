@@ -20,7 +20,7 @@ export default function Index() {
         {/* Nebula Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/planets/622.jpg" 
+            src="/planets/bgimage.jpg" 
             alt="Cosmic Nebula Background" 
             className="w-full h-full object-cover"
           />
