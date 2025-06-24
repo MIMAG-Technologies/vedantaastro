@@ -57,7 +57,7 @@ const ServicesSection: React.FC = () => {
   }
 
   return (
-    <section className="py-11 relative overflow-hidden">
+    <section className="py-9 relative overflow-hidden">
       {/* Reduced background elements for cleaner look */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-32 left-1/5 w-72 h-72 bg-gradient-to-br from-orange-400/10 to-yellow-400/10 rounded-full blur-3xl"></div>

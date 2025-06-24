@@ -44,7 +44,7 @@ const WhyVedantaSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-4 bg-white relative overflow-hidden">
+    <section className="py-0 bg-white relative overflow-hidden">
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-20 right-10 w-64 h-64 bg-gradient-to-br from-orange-400/20 to-yellow-400/20 rounded-full blur-3xl"></div>

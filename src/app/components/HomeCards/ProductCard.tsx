@@ -76,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     : 0
 
   return (
-    <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 border border-slate-100 hover:border-slate-200 overflow-hidden relative">
+    <div className="group bg-white rounded-2xl gap-20 space-x-5 shadow-md hover:shadow-xl transition-all duration-500 border border-slate-100 hover:border-slate-200 overflow-hidden relative">
       {/* Badges */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
         {isBestseller && (

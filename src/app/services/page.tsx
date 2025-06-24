@@ -107,7 +107,7 @@ export default function ServicesPage() {
           <img 
             src="/planets/services.jpg" 
             alt="Services background"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-30"
           />
           
           {/* Very light overlay - just enough for text readability */}
@@ -125,7 +125,10 @@ export default function ServicesPage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Enhanced text shadow for readability without hiding image */}
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-yellow-700 ">
+            <h1 
+              className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              style={{ color: 'white !important' }}
+            >
               Discover Our Services
             </h1>
             <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed mb-12 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
@@ -173,29 +176,57 @@ export default function ServicesPage() {
           <div className="absolute bottom-1/4 right-1/5 w-64 h-64 rounded-full bg-indigo-100/40 blur-3xl" />
         </div>
         
-        {/* Service Type Filter */}
+        {/* Filter and Search Layout */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <div className="flex flex-wrap gap-3 justify-center">
-            {serviceTypes.map((type) => (
-              <button
-                key={type.value}
-                onClick={() => handleTypeChange(type.value)}
-                className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300
-                  flex items-center gap-2 backdrop-blur-sm
-                  ${selectedType === type.value
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25'
-                    : 'bg-white text-gray-600 hover:bg-amber-50 border border-gray-200 hover:border-amber-200'
-                  }`}
-              >
-                <span className="text-lg">{type.icon}</span>
-                {type.label}
-              </button>
-            ))}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            {/* Service Type Filter - Left Side */}
+            <div className="flex flex-wrap gap-3 justify-start">
+              {serviceTypes.map((type) => (
+                <button
+                  key={type.value}
+                  onClick={() => handleTypeChange(type.value)}
+                  className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300
+                    flex items-center gap-2 backdrop-blur-sm
+                    ${selectedType === type.value
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/25'
+                      : 'bg-white text-gray-600 hover:bg-amber-50 border border-gray-200 hover:border-amber-200'
+                    }`}
+                >
+                  <span className="text-lg">{type.icon}</span>
+                  {type.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Bar - Right Side */}
+            <div className="lg:max-w-md lg:w-full">
+              <form onSubmit={handleSearch} className="relative group">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search for services..."
+                  className="w-full px-4 py-3 text-sm border-0 rounded-xl 
+                    focus:ring-2 focus:ring-amber-500 shadow-md
+                    transition-all duration-300 bg-white text-gray-900 placeholder-gray-500"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r 
+                    from-amber-500 to-orange-500 text-white rounded-lg text-sm
+                    hover:from-amber-400 hover:to-orange-400 transition-all duration-300 font-medium
+                    shadow-md hover:shadow-lg transform hover:-translate-y-0.5
+                    focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
           </div>
         </motion.div>
 

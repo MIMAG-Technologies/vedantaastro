@@ -26,7 +26,7 @@ const InsightsSection: React.FC = () => {
   }
 
   return (
-    <section className="py-12 bg-gradient-to-br from-slate-50/30 via-white to-indigo-50/20 relative overflow-hidden">
+    <section className="py-8 bg-gradient-to-br from-slate-50/30 via-white to-indigo-50/20 relative overflow-hidden">
       {/* Enhanced Subtle Background Elements */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-32 left-1/6 w-64 h-64 bg-gradient-to-br from-orange-400/6 to-yellow-400/6 rounded-full blur-3xl"></div>

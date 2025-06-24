@@ -12,46 +12,22 @@ import { motion } from 'framer-motion'
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden">
       <Navbar />
 
       {/* HERO SECTION - With the cosmic nebula background image */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative bg-black h-screen overflow-hidden">
         {/* Nebula Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/planets/bgimage.jpg" 
             alt="Cosmic Nebula Background" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#050114]/30 via-[#14072e]/30 to-[#140729]/30"></div>
         </div>
         
-        {/* Star overlay for extra cosmic effect */}
-        <div className="absolute inset-0 z-10">
-          {/* Twinkling stars */}
-          {[...Array(40)].map((_, i) => (
-            <motion.div
-              key={`star-${i}`}
-              className="absolute"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                opacity: [0.3, 1, 0.3],
-                scale: [0.5, 1.2, 0.5],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-            >
-              <div className={`w-${Math.random() > 0.7 ? '2' : '1'} h-${Math.random() > 0.7 ? '2' : '1'} bg-white rounded-full`}></div>
-            </motion.div>
-          ))}
-        </div>
+        
 
         <div className="container mx-auto h-full relative z-20">
           <div className="flex flex-col md:flex-row h-full items-center">
@@ -91,7 +67,7 @@ export default function Index() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      Call Us Now +91-9022755627
+                      Call Us Now 
                     </motion.a>
                     
                     <motion.a
@@ -123,7 +99,7 @@ export default function Index() {
                   <motion.img 
                     src="/planets/hand_bg.png" 
                     alt="Zodiac Background" 
-                    className="img-responsive as_hand_bg w-full h-auto opacity-90"
+                    className="img-responsive as_hand_bg w-[140%] h-auto opacity-90 scale-120 translate-x-56"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
                   />
@@ -137,28 +113,24 @@ export default function Index() {
         </div>
         
         {/* Slider indicator dots */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
-          <button className="w-2 h-2 rounded-full bg-white opacity-100"></button>
-          <button className="w-2 h-2 rounded-full bg-white opacity-50"></button>
-          <button className="w-2 h-2 rounded-full bg-white opacity-50"></button>
-        </div>
+        
       </section>
 
       {/* Remaining Sections */}
-      <div className="bg-white relative">
-        <div className="py-16">
+      <div className=" relative">
+        <div className="py-12">
           <AstrologersSection />
         </div>
-        <div className="py-16">
+        <div className="py-0">
           <WhyVedantaSection />
         </div>
-        <div className="py-16">
+        <div className="py-12 ">
           <ServicesSection />
         </div>
-        <div className="py-16">
+        <div className="py-0">
           <ProductsSection />
         </div>
-        <div className="py-16">
+        <div className="py-12">
           <InsightsSection />
         </div>
         <Footer />

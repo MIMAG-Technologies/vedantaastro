@@ -40,7 +40,7 @@ const AstrologersSection: React.FC = () => {
         </div>
 
         {/* Astrologers Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 space-x-5 lg:grid-cols-3 gap-8 mb-12">
           {astrologersData.slice(0, 6).map((astrologer) => (
             <AstrologerCard
               key={astrologer.id}
@@ -53,8 +53,8 @@ const AstrologersSection: React.FC = () => {
         </div>
            
         {/* View All Button - Moved further down */}
-        <div className="text-center mt-24">
-          <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white py-4 px-12 rounded-2xl font-medium text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
+        <div className="text-center mt-25">
+          <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white py-4 px-12 rounded-2xl font-2xl text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
             View All Astrologers
           </button>
         </div>
