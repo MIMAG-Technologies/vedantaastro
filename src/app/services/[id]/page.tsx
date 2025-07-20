@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { getServices } from '../../utils/services'
 import ServiceDetailClient from './ServiceDetailClient'
 

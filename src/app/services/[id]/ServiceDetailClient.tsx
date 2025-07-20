@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// src/app/services/[id]/ServiceDetailClient.tsx
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Star, Users, Clock, MapPin, Phone, Calendar, ArrowLeft, Filter, Heart, Share2 } from 'lucide-react'
+import { Search, Star, Users, Clock, Calendar, ArrowLeft, Share2 } from 'lucide-react'
 import Navbar from '../../components/Navbar'
 import { getOneService } from '../../utils/oneservice'
-import { OneServiceResponse } from '@/types/oneservice'
+import { OneServiceResponse } from '@/app/types/oneservice'
 
 interface ServiceDetailClientProps {
   serviceId: string
@@ -20,8 +23,10 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [showBooking, setShowBooking] = useState<number | null>(null)
+  // The 'showBooking' state is no longer needed since we're navigating to a new page.
+  // We'll keep 'selectedAstrologer' for consistency if you need it for other logic later.
   const [selectedAstrologer, setSelectedAstrologer] = useState<number | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [filteredAstrologers, setFilteredAstrologers] = useState<any[]>([])
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL 
@@ -37,6 +42,7 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
         } else {
           setError('Service not found')
         }
+       
       } catch (err) {
         setError('Failed to load service. Please try again later.')
       } finally {
@@ -65,8 +71,7 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
   }
 
   const handleBookAstrologer = (astrologerId: number) => {
-    setSelectedAstrologer(astrologerId)
-    setShowBooking(astrologerId)
+    router.push(`/astrologer/${astrologerId}`); // Navigate to the new astrologer booking page
   }
 
   const handleSearch = (e: React.FormEvent) => {
@@ -355,47 +360,7 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
         </div>
       </section>
 
-      {/* Booking Modal */}
-      <AnimatePresence>
-        {showBooking && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowBooking(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Calendar className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Book Consultation</h3>
-                <p className="text-slate-600 mb-8">
-                  Ready to book a consultation for {service.title}?
-                </p>
-                <div className="space-y-3">
-                  <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
-                    Book Now
-                  </button>
-                  <button
-                    onClick={() => setShowBooking(null)}
-                    className="w-full bg-slate-100 text-slate-700 py-3 px-6 rounded-xl font-semibold hover:bg-slate-200 transition-all duration-300"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Booking Modal - REMOVED since we are navigating to a new page */}
     </div>
   )
-} 
+}

@@ -32,6 +32,7 @@ interface Service {
     is_active:boolean;
     thumbnail_img:string;
     slug:string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     products:any[];
     astrologer_services:AstrologerService[];
 }

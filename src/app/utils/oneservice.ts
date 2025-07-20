@@ -1,5 +1,5 @@
 import axios from "axios";
-import { OneServiceResponse } from "@/types/oneservice";
+import { OneServiceResponse } from "@/app/types/oneservice";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.vedantaastro.com/api';
 
