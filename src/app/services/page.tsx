@@ -35,6 +35,10 @@ export default function ServicesPage() {
   const [selectedType, setSelectedType] = useState(searchParams.get('type') ?? '');
   const currentPage = Number(searchParams.get('page')) || 1;
 
+  const handleServiceSelect = (service: Service) => {
+    router.push(`/services/${service.id}`);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -274,7 +278,7 @@ export default function ServicesPage() {
                                  index % 3 === 1 ? "from-indigo-500" : "from-purple-500"}
                     gradientTo={index % 3 === 0 ? "to-orange-500" : 
                                index % 3 === 1 ? "to-blue-500" : "to-pink-500"}
-                    onSelect={(service) => router.push(`/services/${service.id}`)}
+                    onSelect={handleServiceSelect}
                   />
                 </motion.div>
               ))}
