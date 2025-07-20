@@ -1,9 +1,17 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import AstrologerCard from '../HomeCards/AstrologerCard'
 import { astrologersData } from '@/app/Data/astrologers'
 
 const AstrologersSection: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   const handleChatClick = (id: string) => {
     console.log(`Starting chat with astrologer ${id}`)
   }
@@ -16,6 +24,12 @@ const AstrologersSection: React.FC = () => {
     console.log(`Setting notification for astrologer ${id}`)
   }
 
+  const handleViewAllAstrologers = () => {
+    if (isMounted) {
+      router.push('/astrologers')
+    }
+  }
+
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Subtle Background Pattern */}
@@ -25,7 +39,7 @@ const AstrologersSection: React.FC = () => {
         <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-br from-teal-400 to-blue-400 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -52,9 +66,13 @@ const AstrologersSection: React.FC = () => {
           ))}
         </div>
            
-        {/* View All Button - Moved further down */}
+        {/* View All Button - With mounted check */}
         <div className="text-center mt-25">
-          <button className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white py-4 px-12 rounded-2xl font-2xl text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform">
+          <button 
+            onClick={handleViewAllAstrologers}
+            disabled={!isMounted}
+            className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white py-4 px-12 rounded-2xl font-2xl text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 transform disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             View All Astrologers
           </button>
         </div>

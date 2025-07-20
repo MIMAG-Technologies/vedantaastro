@@ -9,7 +9,7 @@ export const getAstrologerProfile = async(id: number): Promise<Astrologer> => {
         console.log('API URL:', `${API_BASE_URL}/astrologer/${id}`);
         
         const res = await axios.get(`${API_BASE_URL}/astrologer/${id}`);
-        console.log('API Response:', res.data);
+        console.log('Astrologer Profile API Response:', res.data);
         
         // Extract data from the wrapped response
         const astrologerData = res.data.data;
