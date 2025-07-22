@@ -127,47 +127,15 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center"
           >
-            {/* Enhanced text shadow for readability without hiding image */}
-            <h1 
-              className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-              style={{ color: 'white !important' }}
-            >
+            {/* Fixed text color to always be white */}
+            <h1 className="text-5xl md:text-6xl font-semibold mb-6 !text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               Discover Our Services
             </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed mb-12 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
+            <p className="text-xl !text-white max-w-3xl mx-auto leading-relaxed drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
               Explore our comprehensive range of astrological services, designed to guide you on your spiritual journey and help you make informed decisions.
             </p>
-          </motion.div>
-
-          {/* Semi-transparent search bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="max-w-2xl mx-auto"
-          >
-            <form onSubmit={handleSearch} className="relative group">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for services..."
-                className="w-full px-6 py-4 text-lg border-0 rounded-2xl 
-                  focus:ring-2 focus:ring-amber-500 shadow-lg
-                  transition-all duration-300 bg-white/80 backdrop-blur-sm text-gray-900 placeholder-gray-500"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2.5 bg-gradient-to-r 
-                  from-amber-500 to-orange-500 text-white rounded-xl 
-                  hover:from-amber-400 hover:to-orange-400 transition-all duration-300 font-medium
-                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5
-                  focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-              >
-                Search
-              </button>
-            </form>
           </motion.div>
         </div>
       </div>

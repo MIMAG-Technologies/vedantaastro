@@ -62,6 +62,17 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
     }
   }, [searchQuery, serviceData])
 
+  // Add this useEffect to handle navbar scroll behavior for this page only
+  useEffect(() => {
+    // Override navbar scroll behavior for this page
+    document.body.style.setProperty('--navbar-scroll-behavior', 'disabled')
+    
+    return () => {
+      // Clean up when leaving the page
+      document.body.style.removeProperty('--navbar-scroll-behavior')
+    }
+  }, [])
+
   const getImageUrl = (imagePath: string | null) => {
     if (!imagePath) return '/planets/services.jpg'
     if (imagePath.startsWith('http')) return imagePath
@@ -130,8 +141,8 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
     <div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-amber-50/20">
       <Navbar />
       
-      {/* Enhanced Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
+      {/* Enhanced Hero Section - Reduced bottom padding */}
+      <section className="relative pt-24 pb-8 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-amber-50/30"></div>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -147,19 +158,19 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             onClick={() => router.push('/services')}
-            className="mb-12 group inline-flex items-center space-x-3 text-slate-600 hover:text-amber-600 transition-all duration-300 bg-white/70 backdrop-blur-md px-6 py-3 rounded-2xl shadow-lg border border-slate-200/50 hover:shadow-xl hover:border-amber-200"
+            className="mb-8 group inline-flex items-center space-x-3 text-slate-600 hover:text-amber-600 transition-all duration-300 bg-white/70 backdrop-blur-md px-6 py-3 rounded-2xl shadow-lg border border-slate-200/50 hover:shadow-xl hover:border-amber-200"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-2 transition-transform duration-300" />
             <span className="font-semibold">Back to All Services</span>
           </motion.button>
 
-          <div className="grid lg:grid-cols-5 gap-16 items-center">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
             {/* Content Section - Enhanced */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-2 space-y-8"
+              className="lg:col-span-2 space-y-6"
             >
               {/* Service Badge - More Prominent */}
               <div className="inline-flex items-center bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-xl shadow-amber-500/30">
@@ -172,14 +183,14 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
               
               {/* Title with Enhanced Typography */}
               <div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[0.9] mb-6 text-slate-900 tracking-tight">
+                <h1 className="text-4xl md:text-4xl lg:text-5xl font-black leading-[0.9] mb-4 text-slate-900 tracking-tight">
                   {service.title}
                 </h1>
-                <div className="w-20 h-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-8"></div>
+                <div className="w-20 h-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-6"></div>
               </div>
               
               {/* Enhanced Description */}
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <p className="text-xl leading-relaxed text-slate-700 font-medium">
                   {service.description}
                 </p>
@@ -212,7 +223,7 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
               </div>
 
               {/* Enhanced Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <button className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3">
                   <Calendar className="w-5 h-5" />
                   <span>Book Consultation</span>
@@ -241,9 +252,6 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                    
-                    {/* Floating Info Card */}
-                    
                   </div>
                 </div>
               </div>
@@ -252,22 +260,22 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
         </div>
       </section>
 
-      {/* Enhanced Astrologers Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-slate-50">
+      {/* Enhanced Astrologers Section - Reduced top padding */}
+      <section className="py-12 bg-gradient-to-b from-white to-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Enhanced Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <div className="inline-flex items-center bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 px-6 py-2 rounded-full text-sm font-semibold mb-6">
               <Star className="w-4 h-4 mr-2" />
               Handpicked Experts
             </div>
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
-              Meet Your <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Perfect Match</span>
+              Meet Your <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Perfect Astrologer</span>
             </h2>
             <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
               Our certified astrologers bring years of expertise in {service.title.toLowerCase()}, ready to guide you on your spiritual journey with personalized insights and wisdom.
@@ -279,7 +287,7 @@ export default function ServiceDetailClient({ serviceId }: ServiceDetailClientPr
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="max-w-2xl mx-auto mb-16"
+            className="max-w-2xl mx-auto mb-12"
           >
             <form onSubmit={handleSearch} className="relative">
               <div className="relative">

@@ -116,23 +116,13 @@ export default function Index() {
         
       </section>
 
-      {/* Remaining Sections */}
-      <div className=" relative">
-        <div className="py-12">
-          <AstrologersSection />
-        </div>
-        <div className="py-0">
-          <WhyVedantaSection />
-        </div>
-        <div className="py-12 ">
-          <ServicesSection />
-        </div>
-        <div className="py-0">
-          <ProductsSection />
-        </div>
-        <div className="py-12">
-          <InsightsSection />
-        </div>
+      {/* Remaining Sections - Fixed consistent spacing */}
+      <div className="relative">
+        <AstrologersSection />
+        <WhyVedantaSection />
+        <ServicesSection />
+        <ProductsSection />
+        <InsightsSection />
         <Footer />
       </div>
     </div>

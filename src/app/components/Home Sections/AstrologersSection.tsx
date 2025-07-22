@@ -31,7 +31,7 @@ const AstrologersSection: React.FC = () => {
   }
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="pt-24 pb-8 relative overflow-hidden">
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full blur-3xl"></div>
