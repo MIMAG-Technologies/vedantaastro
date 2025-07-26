@@ -4,7 +4,21 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, ChevronDown } from 'lucide-react'
+import { 
+  FaSearch, 
+  FaFilter, 
+  FaTimes, 
+  FaStar, 
+  FaUserFriends, 
+  FaGlobe, 
+  FaClock, 
+  FaVenusMars, 
+  FaRedo,
+  FaSortAmountDown,
+  FaExclamationTriangle,
+  FaSpinner
+} from 'react-icons/fa'
+import { MdVerified, MdTrendingUp } from 'react-icons/md'
 import Navbar from '../components/Navbar'
 import AstrologerCard from '../components/HomeCards/AstrologerCard'
 import { getAllAstrologers, AstrologerListItem } from '../utils/fetchAllAstrologers'
@@ -53,6 +67,7 @@ export default function AstrologersClient() {
   const fetchAstrologers = async () => {
     try {
       setLoading(true)
+      setError(null)
       const response = await getAllAstrologers({
         page: 1,
         query: searchQuery || undefined,
@@ -162,15 +177,23 @@ export default function AstrologersClient() {
     }
   })
 
-  const FilterCheckbox = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: (checked: boolean) => void }) => (
-    <label className="flex items-center space-x-3 cursor-pointer hover:bg-indigo-50/50 p-2 rounded-xl transition-colors">
+  const FilterCheckbox = ({ label, checked, onChange, icon: Icon }: { 
+    label: string, 
+    checked: boolean, 
+    onChange: (checked: boolean) => void,
+    icon?: any 
+  }) => (
+    <label className="flex items-center space-x-3 cursor-pointer hover:bg-amber-50/50 p-3 rounded-xl transition-all duration-200 group">
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2"
+        className="w-4 h-4 text-amber-600 border-slate-300 rounded focus:ring-amber-500 focus:ring-2 transition-all"
       />
-      <span className="text-sm text-slate-700 flex-1">{label}</span>
+      <div className="flex items-center space-x-2 flex-1">
+        {Icon && <Icon className="w-4 h-4 text-slate-400 group-hover:text-amber-500 transition-colors" />}
+        <span className="text-sm text-slate-700 font-medium">{label}</span>
+      </div>
     </label>
   )
 
@@ -181,16 +204,16 @@ export default function AstrologersClient() {
     
     // Create specializations from bio or default ones
     const defaultSpecializations = ['Vedic', 'Palmistry', 'Numerology', 'Tarot', 'Vastu', 'Remedies']
-    const specializations = defaultSpecializations.slice(0, 3) // Take first 3 as default
+    const specializations = defaultSpecializations.slice(0, 3)
 
     return {
       id: astrologer.id.toString(),
       name: astrologer.full_name,
       experience: `${astrologer.experience_years}+ Years Experience`,
       rating: parseFloat(astrologer.astrologer_ratings.average_rating),
-      totalRatings: Math.min(astrologer.astrologer_ratings.total_reviews, 5), // Cap at 5 for display
+      totalRatings: Math.min(astrologer.astrologer_ratings.total_reviews, 5),
       specializations,
-      isOnline: astrologer.is_active && Math.random() > 0.3, // Random online status, you can modify this based on actual data
+      isOnline: astrologer.is_active && Math.random() > 0.3,
       avatar: astrologer.profile_image || undefined,
       initials,
       gradientFrom: gradient.from,
@@ -200,101 +223,123 @@ export default function AstrologersClient() {
 
   // Event handlers for astrologer actions
   const handleChatClick = (id: string) => {
-    console.log(`Starting chat with astrologer ${id}`)
     router.push(`/astrologer/${id}`)
   }
 
   const handleCallClick = (id: string) => {
-    console.log(`Starting call with astrologer ${id}`)
     router.push(`/astrologer/${id}`)
   }
 
   const handleNotifyClick = (id: string) => {
-    console.log(`Setting notification for astrologer ${id}`)
     router.push(`/astrologer/${id}`)
   }
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
       <Navbar />
       
-      {/* Background pattern matching home section */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-gradient-to-br from-orange-400 to-yellow-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-br from-teal-400 to-blue-400 rounded-full blur-3xl"></div>
+      {/* Subtle background elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-amber-100/20 to-orange-100/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-10 w-48 h-48 bg-gradient-to-br from-purple-100/20 to-indigo-100/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-gradient-to-br from-emerald-100/15 to-teal-100/15 rounded-full blur-3xl"></div>
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 container mx-auto px-6 pt-28 pb-8">
-        {/* Header matching home section style */}
-        <div className="flex flex-col gap-8 lg:gap-0 lg:flex-row">
-          <div className="flex-1">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
-                <span className="text-slate-800">Find Your Perfect </span>
-                <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
-                  Astrologer
-                </span>
-              </h1>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Connect with experienced astrologers tailored to your specific needs
-              </p>
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12">
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <MdVerified className="w-4 h-4 mr-2" />
+            Verified Experts
+          </div>
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+            <span className="text-slate-800">Find Your Perfect </span>
+            <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              Astrologer
+            </span>
+          </h1>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Connect with certified astrologers who specialize in personalized guidance and spiritual solutions
+          </p>
+        </motion.div>
+
+        {/* Results Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-200/60 pb-6 mb-8"
+        >
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <FaUserFriends className="w-5 h-5 text-amber-500" />
+              <h2 className="text-2xl font-bold text-slate-800">Expert Results</h2>
             </div>
-            {/* Header/Sort area */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-200 pb-4 mb-8">
-              <div>
-                <h2 className="text-2xl font-semibold text-slate-800">Expert Results</h2>
-                <p className="text-slate-600 mt-1">{sortedAstrologers.length} experts found</p>
-              </div>
-              <div className="flex items-center gap-3 mt-4 md:mt-0">
-                <span className="text-sm text-slate-600 font-medium">Sort by</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white/80 backdrop-blur-sm font-medium"
-                >
-                  {sortOptions.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
+            <div className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">
+              {sortedAstrologers.length} experts found
             </div>
           </div>
-        </div>
+          <div className="flex items-center space-x-3 mt-4 md:mt-0">
+            <FaSortAmountDown className="w-4 h-4 text-slate-500" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none bg-white/80 backdrop-blur-sm font-medium text-sm"
+            >
+              {sortOptions.map(option => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
+          </div>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar - Filters */}
-          <div className="w-full lg:w-80 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 h-fit min-h-[500px] sticky top-28 mb-8 lg:mb-0">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="w-full lg:w-80 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/50 p-6 h-fit sticky top-28"
+          >
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-xl font-semibold text-slate-800">Filters</h2>
+              <div className="flex items-center space-x-2">
+                <FaFilter className="w-5 h-5 text-amber-500" />
+                <h2 className="text-xl font-bold text-slate-800">Filters</h2>
+              </div>
               <button 
                 onClick={resetAllFilters}
-                className="border border-amber-200 bg-slate-50 hover:bg-amber-50 text-amber-600 text-sm font-medium rounded-lg px-3 py-1 transition-all duration-200"
+                className="flex items-center space-x-2 bg-slate-100 hover:bg-amber-100 text-slate-600 hover:text-amber-700 text-sm font-medium rounded-lg px-3 py-2 transition-all duration-200"
               >
-                Reset All
+                <FaRedo className="w-3 h-3" />
+                <span>Reset</span>
               </button>
             </div>
 
             {/* Search */}
             <div className="mb-8">
-              <div className="relative focus-within:ring-1 focus-within:ring-indigo-100 rounded-2xl">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <div className="relative">
+                <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search experts by name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="w-full pl-12 pr-4 py-4 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white/50 backdrop-blur-sm transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none bg-white/50 backdrop-blur-sm transition-all text-sm"
                 />
               </div>
             </div>
 
             {/* Languages Filter */}
             <div className="mb-8">
-              <h3 className="font-semibold text-slate-800 mb-4 flex items-center">
-                <div className="w-2 h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mr-3"></div>
+              <h3 className="font-bold text-slate-800 mb-4 flex items-center">
+                <FaGlobe className="w-4 h-4 text-amber-500 mr-2" />
                 Languages
               </h3>
               <div className="space-y-1 max-h-48 overflow-y-auto">
@@ -309,10 +354,10 @@ export default function AstrologersClient() {
                 {languageOptions.length > 5 && (
                   <button
                     onClick={() => setShowMoreLanguages(!showMoreLanguages)}
-                    className="text-indigo-600 text-sm hover:text-indigo-700 font-medium flex items-center gap-2 pl-2 pt-2"
+                    className="text-amber-600 text-sm hover:text-amber-700 font-medium flex items-center space-x-2 pl-3 pt-2 transition-colors"
                   >
-                    View {showMoreLanguages ? 'less' : `more (${languageOptions.length - 5} more)`}
-                    <ChevronDown className={`w-4 h-4 transition-transform ${showMoreLanguages ? 'rotate-180' : ''}`} />
+                    <span>View {showMoreLanguages ? 'less' : `more (${languageOptions.length - 5} more)`}</span>
+                    <FaTimes className={`w-3 h-3 transition-transform ${showMoreLanguages ? 'rotate-45' : ''}`} />
                   </button>
                 )}
               </div>
@@ -320,8 +365,8 @@ export default function AstrologersClient() {
 
             {/* Experience Filter */}
             <div className="mb-8">
-              <h3 className="font-semibold text-slate-800 mb-4 flex items-center">
-                <div className="w-2 h-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mr-3"></div>
+              <h3 className="font-bold text-slate-800 mb-4 flex items-center">
+                <FaClock className="w-4 h-4 text-amber-500 mr-2" />
                 Experience
               </h3>
               <div className="space-y-1">
@@ -338,8 +383,8 @@ export default function AstrologersClient() {
 
             {/* Gender Filter */}
             <div className="mb-8">
-              <h3 className="font-semibold text-slate-800 mb-4 flex items-center">
-                <div className="w-2 h-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mr-3"></div>
+              <h3 className="font-bold text-slate-800 mb-4 flex items-center">
+                <FaVenusMars className="w-4 h-4 text-amber-500 mr-2" />
                 Gender
               </h3>
               <div className="space-y-1">
@@ -356,8 +401,8 @@ export default function AstrologersClient() {
 
             {/* Rating Filter */}
             <div className="mb-6">
-              <h3 className="font-semibold text-slate-800 mb-4 flex items-center">
-                <div className="w-2 h-2 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full mr-3"></div>
+              <h3 className="font-bold text-slate-800 mb-4 flex items-center">
+                <FaStar className="w-4 h-4 text-amber-500 mr-2" />
                 Rating
               </h3>
               <div className="space-y-1">
@@ -371,37 +416,52 @@ export default function AstrologersClient() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Main Content */}
           <div className="flex-1">
             {/* Loading State */}
             {loading && (
-              <div className="flex justify-center items-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex justify-center items-center py-20"
+              >
+                <div className="flex flex-col items-center space-y-4">
+                  <FaSpinner className="w-8 h-8 text-amber-500 animate-spin" />
+                  <p className="text-slate-600 font-medium">Loading experts...</p>
+                </div>
+              </motion.div>
             )}
 
             {/* Error State */}
             {error && (
-              <div className="text-center py-20">
-                <div className="text-red-600 text-lg mb-4">{error}</div>
-                <button 
-                  onClick={fetchAstrologers}
-                  className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white px-8 py-3 rounded-2xl hover:shadow-lg transition-all duration-300 font-medium"
-                >
-                  Try Again
-                </button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-20"
+              >
+                <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+                  <FaExclamationTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-red-800 mb-2">Unable to Load Experts</h3>
+                  <p className="text-red-600 mb-6">{error}</p>
+                  <button 
+                    onClick={fetchAstrologers}
+                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-medium"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </motion.div>
             )}
 
-            {/* Astrologers Grid - Clean, modern look with fade-in */}
+            {/* Astrologers Grid */}
             {!loading && !error && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12"
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
               >
                 <AnimatePresence>
                   {sortedAstrologers.map((astrologer, index) => (
@@ -410,7 +470,7 @@ export default function AstrologersClient() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
                     >
                       <AstrologerCard
                         {...convertToCardProps(astrologer, index)}
@@ -426,15 +486,23 @@ export default function AstrologersClient() {
 
             {/* No Results */}
             {!loading && !error && sortedAstrologers.length === 0 && (
-              <div className="text-center py-20">
-                <div className="text-slate-500 text-lg mb-6">No astrologers found matching your criteria</div>
-                <button 
-                  onClick={resetAllFilters}
-                  className="bg-gradient-to-r from-orange-500 to-yellow-400 hover:from-orange-600 hover:to-yellow-500 text-white px-8 py-3 rounded-2xl hover:shadow-lg transition-all duration-300 font-medium"
-                >
-                  Clear Filters
-                </button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-20"
+              >
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 max-w-md mx-auto">
+                  <FaSearch className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-slate-800 mb-2">No Experts Found</h3>
+                  <p className="text-slate-600 mb-6">Try adjusting your filters or search criteria</p>
+                  <button 
+                    onClick={resetAllFilters}
+                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-3 rounded-xl hover:shadow-lg transition-all duration-300 font-medium"
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              </motion.div>
             )}
           </div>
         </div>

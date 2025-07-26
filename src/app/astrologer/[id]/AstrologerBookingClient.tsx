@@ -9,6 +9,7 @@ import { ArrowLeft, Star, Clock, MessageCircle, Phone, Video, MapPin, CheckCircl
 import Navbar from '../../components/Navbar'
 import { getAstrologerProfile } from '../../utils/astrologerprofile'
 import { Astrologer, AstrologerSchedule } from '@/app/types/astrologerProfile'
+import { FaRegCalendarAlt, FaRegClock, FaChevronDown } from "react-icons/fa";
 
 interface CalendarDay {
   date: Date
@@ -32,7 +33,7 @@ export default function AstrologerBookingClient({ astrologerId }: AstrologerBook
   const [error, setError] = useState<string | null>(null)
   const [selectedScheduleDay, setSelectedScheduleDay] = useState<AstrologerSchedule | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
-  const [sessionType, setSessionType] = useState<'individual' | 'couple'>('individual')
+  const [sessionType, setSessionType] = useState<string>('individual')
   const [selectedMode, setSelectedMode] = useState<'chat' | 'call' | 'video' | 'in_person'>('chat')
   const [showBookingSummaryModal, setShowBookingSummaryModal] = useState(false)
 
@@ -206,24 +207,12 @@ export default function AstrologerBookingClient({ astrologerId }: AstrologerBook
 
       <div className="relative pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back button */}
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            onClick={() => router.back()}
-            className="mb-8 group inline-flex items-center space-x-3 text-slate-600 hover:text-amber-600 transition-all duration-300 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-sm border border-slate-200/50"
-          >
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span className="font-medium">Back to All Services</span>
-          </motion.button>
-
           {/* Professional Hero Section with Profile */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-slate-200/50 p-10 mb-8" // Increased padding to p-10
+            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-slate-200/50 p-10 mb-8"
           >
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               {/* Left side - Profile info */}
@@ -232,7 +221,7 @@ export default function AstrologerBookingClient({ astrologerId }: AstrologerBook
                   <img
                     src={profileImage}
                     alt={astrologer.full_name}
-                    className="w-48 h-48 rounded-2xl object-cover border-4 border-amber-400 shadow-xl" // Increased w- and h- to w-48 h-48
+                    className="w-48 h-48 rounded-2xl object-cover border-4 border-amber-400 shadow-xl"
                   />
                   <div className="absolute -bottom-2 -right-2 bg-emerald-500 w-8 h-8 rounded-full flex items-center justify-center border-3 border-white">
                     <Clock size={16} className="text-white" />
@@ -315,220 +304,186 @@ export default function AstrologerBookingClient({ astrologerId }: AstrologerBook
             </div>
           </motion.div>
 
-          {/* Booking Section - Compact and Professional */}
+          {/* Booking Section - Horizontal Layout */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-slate-200/50 p-8"
           >
-            <div className="flex items-center justify-center mb-6">
-              <Calendar className="w-8 h-8 text-amber-500 mr-3" />
-              <h2 className="text-2xl font-bold text-slate-800">Book Your Consultation</h2>
+            <div className="text-center mb-8">
+              <Calendar className="w-8 h-8 text-amber-500 mx-auto mb-3" />
+              <h2 className="text-3xl font-bold text-slate-800 mb-2">Book Your Consultation</h2>
+              <p className="text-slate-600">Select your preferences and complete your booking</p>
             </div>
 
-            {/* Session Configuration */}
-            <div className="grid lg:grid-cols-4 gap-6 mb-8">
-              {/* Session Type */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-3">Session Type</label>
-                <div className="space-y-2">
-                  {[
-                    { key: 'individual', label: 'Individual', icon: User },
-                    { key: 'couple', label: 'Couple', icon: User }
-                  ].map(({ key, label, icon: Icon }) => (
-                    <button
-                      key={key}
-                      onClick={() => setSessionType(key as any)}
-                      className={`w-full flex items-center p-3 rounded-lg border transition-all duration-300 ${
-                        sessionType === key
-                          ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200'
-                          : 'bg-white border-slate-200 hover:border-amber-200'
-                      }`}
-                    >
-                      <Icon size={18} className="mr-3 text-slate-600" />
-                      <span className="font-medium text-slate-800">{label}</span>
-                    </button>
-                  ))}
+            {/* Horizontal Booking Form */}
+            <div className="flex flex-col lg:flex-row gap-6 mb-8 items-end justify-center">
+              {/* Session Type - Only Individual */}
+              <div className="w-full lg:w-1/4">
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Session Type</label>
+                <div className="w-full p-3 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 font-semibold text-center shadow-sm">
+                  Individual Session
                 </div>
               </div>
 
               {/* Mode Selection */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-3">Consultation Mode</label>
-                <div className="space-y-2">
-                  {[
-                    { key: 'chat', label: 'Chat', price: getPriceForMode('chat') },
-                    { key: 'call', label: 'Voice Call', price: getPriceForMode('call') },
-                    { key: 'video', label: 'Video Call', price: getPriceForMode('video') },
-                    { key: 'in_person', label: 'In Person', price: getPriceForMode('offline') }
-                  ].map((mode) => (
-                    <button
-                      key={mode.key}
-                      onClick={() => setSelectedMode(mode.key as any)}
-                      className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all duration-300 ${
-                        selectedMode === mode.key
-                          ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200'
-                          : 'bg-white border-slate-200 hover:border-amber-200'
-                      }`}
-                    >
-                      <span className="font-medium text-slate-800">{mode.label}</span>
-                      <span className="text-sm font-bold text-amber-600">{mode.price}</span>
-                    </button>
-                  ))}
+              <div className="w-full lg:w-1/4">
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Consultation Mode</label>
+                <div className="relative">
+                  <select
+                    value={selectedMode}
+                    onChange={(e) => setSelectedMode(e.target.value as any)}
+                    className="w-full p-3 rounded-xl border-2 border-amber-200 bg-amber-50 text-amber-700 font-semibold shadow focus:border-amber-500 focus:ring-2 focus:ring-amber-200/50 outline-none appearance-none transition-all duration-300"
+                  >
+                    <option value="chat">💬 Chat - {getPriceForMode('chat')}</option>
+                    <option value="call">📞 Voice Call - {getPriceForMode('call')}</option>
+                    <option value="video">🎥 Video Call - {getPriceForMode('video')}</option>
+                    <option value="in_person">📍 In Person - {getPriceForMode('offline')}</option>
+                  </select>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none">▼</span>
                 </div>
               </div>
 
               {/* Date Selection */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-3">Select Date</label>
-                <div className="space-y-2">
-                  {getCalendarDays.slice(0, 4).map((day, index) => (
-                    <button
-                      key={index}
-                      onClick={() => day.schedule && setSelectedScheduleDay(day.schedule)}
-                      disabled={!day.isWorkingDay}
-                      className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all duration-300 ${
-                        day.isWorkingDay
-                          ? selectedScheduleDay?.id === day.schedule?.id
-                            ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200'
-                            : 'bg-white border-slate-200 hover:border-amber-200'
-                          : 'bg-slate-100 border-slate-200 cursor-not-allowed opacity-60'
-                      }`}
-                    >
-                      <div className="text-left">
-                        <div className="font-medium text-slate-800">{day.dayName}</div>
-                        <div className="text-sm text-slate-600">{day.dayNumber}</div>
-                      </div>
-                      {day.isWorkingDay && <CheckCircle size={16} className="text-green-500" />}
-                    </button>
-                  ))}
+              <div className="w-full lg:w-1/4">
+                <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+                  <FaRegCalendarAlt className="text-amber-500" /> Select Date
+                </label>
+                <div className="relative">
+                  <select
+                    value={selectedScheduleDay?.id || ''}
+                    onChange={(e) => {
+                      const schedule = astrologer?.astrologer_schedules.find(s => s.id === Number(e.target.value))
+                      setSelectedScheduleDay(schedule || null)
+                      setSelectedTime(null)
+                    }}
+                    className="w-full p-3 rounded-xl border-2 border-amber-200 bg-amber-50 text-amber-700 font-semibold shadow focus:border-amber-500 focus:ring-2 focus:ring-amber-200/50 outline-none appearance-none transition-all duration-300 pr-10"
+                  >
+                    <option value="">Choose a date</option>
+                    {getCalendarDays.filter(day => day.isWorkingDay).map((day, index) => (
+                      <option key={index} value={day.schedule?.id}>
+                        {day.dayName}, {day.dayNumber} - {day.schedule?.day_of_week}
+                      </option>
+                    ))}
+                  </select>
+                  <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none" />
                 </div>
               </div>
 
               {/* Time Selection */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-3">
-                  Available Times
+              <div className="w-full lg:w-1/4">
+                <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+                  <FaRegClock className="text-amber-500" /> Available Times
                   {selectedScheduleDay && (
-                    <span className="text-slate-500"> - {selectedScheduleDay.day_of_week}</span>
+                    <span className="text-slate-500 ml-1">- {selectedScheduleDay.day_of_week}</span>
                   )}
                 </label>
-                {selectedScheduleDay && generateTimeSlots.length > 0 ? (
-                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                <div className="relative">
+                  <select
+                    value={selectedTime || ''}
+                    onChange={(e) => setSelectedTime(e.target.value)}
+                    disabled={!selectedScheduleDay}
+                    className="w-full p-3 rounded-xl border-2 border-amber-200 bg-amber-50 text-amber-700 font-semibold shadow focus:border-amber-500 focus:ring-2 focus:ring-amber-200/50 outline-none appearance-none transition-all duration-300 pr-10 disabled:bg-slate-50 disabled:cursor-not-allowed"
+                  >
+                    <option value="">Select time slot</option>
                     {generateTimeSlots.map((slot, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedTime(slot)}
-                        className={`w-full p-3 rounded-lg border transition-all duration-300 ${
-                          selectedTime === slot
-                            ? 'bg-amber-50 border-amber-300 ring-2 ring-amber-200'
-                            : 'bg-white border-slate-200 hover:border-amber-200'
-                        }`}
-                      >
-                        <span className="font-medium text-slate-800">{slot}</span>
-                      </button>
+                      <option key={index} value={slot}>
+                        {slot}
+                      </option>
                     ))}
-                  </div>
-                ) : (
-                  <div className="p-4 bg-slate-50 rounded-lg text-center text-slate-500">
-                    {selectedScheduleDay
-                      ? 'No available time slots'
-                      : 'Please select a date first'
-                    }
-                  </div>
-                )}
+                  </select>
+                  <FaChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-400 pointer-events-none" />
+                </div>
               </div>
             </div>
 
-            {/* Book Button */}
+            {/* Professional Book Button */}
             <div className="text-center">
               <button
                 disabled={!selectedScheduleDay || !selectedTime || !selectedMode}
                 onClick={handleBookingClick}
-                className={`px-12 py-4 rounded-2xl font-bold text-lg transition-all duration-300 ${
+                className={`px-16 py-5 rounded-2xl font-bold text-xl transition-all duration-300 transform ${
                   selectedScheduleDay && selectedTime && selectedMode
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:scale-105'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-2xl hover:shadow-3xl hover:scale-105 hover:-translate-y-1'
                     : 'bg-slate-200 text-slate-500 cursor-not-allowed'
                 }`}
               >
                 {selectedScheduleDay && selectedTime && selectedMode
-                  ? `Book Now - ${getPriceForMode(selectedMode === 'in_person' ? 'offline' : selectedMode as any)}`
+                  ? `Book Consultation - ${getPriceForMode(selectedMode === 'in_person' ? 'offline' : selectedMode as any)}`
                   : 'Complete Selection to Continue'
                 }
               </button>
+              
+              {selectedScheduleDay && selectedTime && selectedMode && (
+                <p className="text-slate-600 mt-4 text-sm">
+                  ✓ All selections complete • Ready to proceed
+                </p>
+              )}
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Booking Summary Modal */}
+      {/* Enhanced Booking Summary Modal */}
       <AnimatePresence>
         {showBookingSummaryModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={() => setShowBookingSummaryModal(false)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle size={32} className="text-white" />
+                <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <CheckCircle size={28} className="text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-4">Confirm Booking</h3>
-
-                <div className="bg-slate-50 rounded-lg p-4 mb-6 text-left">
+                <h3 className="text-xl font-bold text-slate-800 mb-1">Confirm Your Booking</h3>
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 mb-4 text-left border border-amber-100">
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Astrologer:</span>
-                      <span className="font-medium">{astrologer.full_name}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 font-medium">Astrologer:</span>
+                      <span className="font-bold text-slate-800">{astrologer.full_name}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Type:</span>
-                      <span className="font-medium">{sessionType}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 font-medium">Mode:</span>
+                      <span className="font-bold text-slate-800">{selectedMode.replace('_', ' ')}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Mode:</span>
-                      <span className="font-medium">{selectedMode.replace('_', ' ')}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 font-medium">Date:</span>
+                      <span className="font-bold text-slate-800">{selectedScheduleDay?.day_of_week}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Date:</span>
-                      <span className="font-medium">{selectedScheduleDay?.day_of_week}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 font-medium">Time:</span>
+                      <span className="font-bold text-slate-800">{selectedTime}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Time:</span>
-                      <span className="font-medium">{selectedTime}</span>
-                    </div>
-                    <hr className="my-2" />
-                    <div className="flex justify-between text-lg font-bold">
-                      <span>Total:</span>
-                      <span className="text-amber-600">{getPriceForMode(selectedMode === 'in_person' ? 'offline' : selectedMode as any)}</span>
+                    <hr className="my-2 border-amber-100" />
+                    <div className="flex justify-between items-center text-base">
+                      <span className="font-bold text-slate-800">Total:</span>
+                      <span className="font-bold text-lg text-amber-600">{getPriceForMode(selectedMode === 'in_person' ? 'offline' : selectedMode as any)}</span>
                     </div>
                   </div>
                 </div>
-
-                <div className="space-y-3">
-                  <button
-                    onClick={handlePayNow}
-                    className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-lg font-bold hover:shadow-lg transition-all duration-300"
-                  >
-                    Proceed to Payment
-                  </button>
-                  <button
-                    onClick={() => setShowBookingSummaryModal(false)}
-                    className="w-full bg-slate-100 text-slate-700 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-all duration-300"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                <button
+                  onClick={handlePayNow}
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-xl font-bold text-base hover:shadow-lg transition-all duration-300 mb-2"
+                >
+                  Proceed to Payment
+                </button>
+                <button
+                  onClick={() => setShowBookingSummaryModal(false)}
+                  className="w-full bg-slate-100 text-slate-700 py-2 rounded-lg font-semibold hover:bg-slate-200 transition-all duration-300"
+                >
+                  Cancel & Return
+                </button>
               </div>
             </motion.div>
           </motion.div>
