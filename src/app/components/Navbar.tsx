@@ -11,10 +11,10 @@ import Image from 'next/image'
 
 const NAV_LINKS = [
   { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
   { name: 'Services', href: '/services' },
   { name: 'Products', href: '/products' },
   { name: 'Blogs', href: '/blogs' },
-  { name: 'About Us', href: '/about' },
 ]
 
 const Navbar = () => {

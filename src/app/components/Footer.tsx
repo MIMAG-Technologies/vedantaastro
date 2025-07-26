@@ -35,11 +35,11 @@ const Footer: React.FC = () => {
 
   return (
     <footer className=" text-gray-900">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16 grid lg:grid-cols-4 gap-12">
           {/* Company Info */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 ml-6">
             <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent mb-4 inline-block">
               Vedanta Astro
             </Link>
@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your mail here"
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-orange-500 transition-colors"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white  placeholder-slate-400 focus:outline-none focus:border-orange-500 transition-colors"
                 required
               />
               <button

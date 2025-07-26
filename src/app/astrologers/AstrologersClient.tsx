@@ -163,7 +163,7 @@ export default function AstrologersClient() {
   })
 
   const FilterCheckbox = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: (checked: boolean) => void }) => (
-    <label className="flex items-center space-x-3 cursor-pointer hover:bg-indigo-50/30 p-2 rounded-xl transition-colors">
+    <label className="flex items-center space-x-3 cursor-pointer hover:bg-indigo-50/50 p-2 rounded-xl transition-colors">
       <input
         type="checkbox"
         checked={checked}
@@ -215,7 +215,7 @@ export default function AstrologersClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+    <div className="min-h-screen ">
       <Navbar />
       
       {/* Background pattern matching home section */}
@@ -228,26 +228,49 @@ export default function AstrologersClient() {
       {/* Main content */}
       <div className="relative z-10 container mx-auto px-6 pt-28 pb-8">
         {/* Header matching home section style */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-slate-800">Find Your Perfect </span>
-            <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
-              Expert
-            </span>
-          </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Connect with experienced astrologers tailored to your specific needs
-          </p>
+        <div className="flex flex-col gap-8 lg:gap-0 lg:flex-row">
+          <div className="flex-1">
+            <div className="text-center mb-8">
+              <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
+                <span className="text-slate-800">Find Your Perfect </span>
+                <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
+                  Astrologer
+                </span>
+              </h1>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                Connect with experienced astrologers tailored to your specific needs
+              </p>
+            </div>
+            {/* Header/Sort area */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-200 pb-4 mb-8">
+              <div>
+                <h2 className="text-2xl font-semibold text-slate-800">Expert Results</h2>
+                <p className="text-slate-600 mt-1">{sortedAstrologers.length} experts found</p>
+              </div>
+              <div className="flex items-center gap-3 mt-4 md:mt-0">
+                <span className="text-sm text-slate-600 font-medium">Sort by</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white/80 backdrop-blur-sm font-medium"
+                >
+                  {sortOptions.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar - Filters */}
-          <div className="w-80 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg p-8 h-fit sticky top-28 border border-white/20">
+          <div className="w-full lg:w-80 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 h-fit min-h-[500px] sticky top-28 mb-8 lg:mb-0">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-xl font-semibold text-slate-800">Filters</h2>
               <button 
                 onClick={resetAllFilters}
-                className="text-amber-600 text-sm hover:text-amber-700 font-medium transition-colors"
+                className="border border-amber-200 bg-slate-50 hover:bg-amber-50 text-amber-600 text-sm font-medium rounded-lg px-3 py-1 transition-all duration-200"
               >
                 Reset All
               </button>
@@ -255,7 +278,7 @@ export default function AstrologersClient() {
 
             {/* Search */}
             <div className="mb-8">
-              <div className="relative">
+              <div className="relative focus-within:ring-1 focus-within:ring-indigo-100 rounded-2xl">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
                 <input
                   type="text"
@@ -352,26 +375,6 @@ export default function AstrologersClient() {
 
           {/* Main Content */}
           <div className="flex-1">
-            {/* Sort and Results Header */}
-            <div className="flex justify-between items-center mb-8">
-              <div>
-                <h2 className="text-2xl font-semibold text-slate-800">Expert Results</h2>
-                <p className="text-slate-600 mt-1">{sortedAstrologers.length} experts found</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-slate-600 font-medium">Sort by</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white/80 backdrop-blur-sm font-medium"
-                >
-                  {sortOptions.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
             {/* Loading State */}
             {loading && (
               <div className="flex justify-center items-center py-20">
@@ -392,9 +395,14 @@ export default function AstrologersClient() {
               </div>
             )}
 
-            {/* Astrologers Grid - Using exact same layout as home section */}
+            {/* Astrologers Grid - Clean, modern look with fade-in */}
             {!loading && !error && (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12"
+              >
                 <AnimatePresence>
                   {sortedAstrologers.map((astrologer, index) => (
                     <motion.div
@@ -413,7 +421,7 @@ export default function AstrologersClient() {
                     </motion.div>
                   ))}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             )}
 
             {/* No Results */}
