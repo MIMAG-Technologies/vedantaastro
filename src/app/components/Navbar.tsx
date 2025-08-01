@@ -6,8 +6,9 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, User, LogOut } from 'lucide-react'
 import Image from 'next/image'
+import { useAuth } from '@/context/AuthContext'
 
 const NAV_LINKS = [
   { name: 'Home', href: '/' },
@@ -20,7 +21,9 @@ const NAV_LINKS = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isFixed, setIsFixed] = useState(false)
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
   const pathname = usePathname()
+  const { user, me, logout } = useAuth()
 
   // Optimized scroll handler
   useEffect(() => {
@@ -49,6 +52,19 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [])
 
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.profile-dropdown')) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   // Determine if we're on a page with a hero section
   const hasHero = ['/', '/services', '/about'].includes(pathname);
 
@@ -68,6 +84,15 @@ const Navbar = () => {
     return 'text-amber-400';
   }
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setIsProfileDropdownOpen(false);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <header 
       className={`w-full z-50 transition-all duration-200 ${
@@ -77,7 +102,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20"> {/* Fixed height for consistency */}
+        <div className="flex items-center justify-between h-20">
           {/* Logo with Image and Text */}
           <Link href="/" className="flex items-center gap-2">
             {/* Logo Image */}
@@ -107,7 +132,7 @@ const Navbar = () => {
           <div className="flex-grow"></div>
 
           {/* Desktop Navigation - moved to the end with better spacing */}
-          <nav className="hidden md:flex items-center justify-end space-x-6"> {/* Added space between items */}
+          <nav className="hidden md:flex items-center justify-end space-x-6">
             {/* Links with dynamic text color */}
             {NAV_LINKS.map((link) => (
               <Link 
@@ -130,6 +155,64 @@ const Navbar = () => {
             >
               Contact
             </Link>
+
+            {/* Auth Section */}
+            {user ? (
+              <div className="relative profile-dropdown">
+                <button
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                    isFixed 
+                      ? 'text-gray-700 hover:bg-gray-100' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center">
+                    {me?.personalInfo?.profileImage ? (
+                      <img
+                        src={me.personalInfo.profileImage}
+                        alt="Profile"
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <User className="w-4 h-4 text-white" />
+                    )}
+                  </div>
+                  <span className="text-sm font-medium">
+                    {me?.personalInfo?.name || user.displayName || 'Profile'}
+                  </span>
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+
+                {/* Profile Dropdown */}
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <Link
+                      href="/profile"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      <User className="w-4 h-4 mr-2" />
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                Login
+              </Link>
+            )}
           </nav>
 
           {/* Mobile Menu Button with dynamic color */}
@@ -144,7 +227,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation - kept the same */}
+      {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 py-2">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -170,6 +253,35 @@ const Navbar = () => {
               >
                 Contact
               </Link>
+              
+              {/* Mobile Auth Section */}
+              {user ? (
+                <>
+                  <Link
+                    href="/profile"
+                    className="flex items-center py-2 px-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    My Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center w-full py-2 px-3 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  className="bg-gradient-to-r from-amber-500 to-orange-500 text-white py-2.5 px-4 rounded-lg text-sm font-medium text-center mt-2 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-sm hover:shadow-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
             </nav>
           </div>
         </div>
